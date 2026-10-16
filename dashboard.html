@@ -12,7 +12,14 @@
 <main class="wrap"><div id="loading">Checking your account…</div><div id="dashboard" hidden>
 <section class="welcome"><div><div class="eyebrow">CUSTOMER DASHBOARD</div><h1>Welcome, <span id="userName">there</span> 👋</h1><div class="muted">Your BoostPlus account, all in one place.</div></div><a class="btn primary" href="./index.html#services">Explore services ↗</a></section>
 <section class="grid" aria-label="Account summary">
-<article class="card"><div class="card-icon">◈</div><h2>Wallet balance</h2><div class="balance">Not activated</div><span class="badge">Coming next</span><p style="margin-top:13px">Your wallet will show your available balance after we build the secure wallet and deposit flow.</p><button class="btn" type="button" data-not-ready="Wallet deposits">Wallet details</button></article>
+<article class="card">
+<div class="card-icon">◈</div>
+<h2>Wallet balance</h2>
+<div class="balance" id="walletBalance">Loading balance...</div>
+<span class="badge" id="walletStatus">Connecting wallet</span>
+<p id="walletMessage" style="margin-top:13px">Loading your available balance from your secure account.</p>
+<button class="btn" type="button" data-not-ready="Wallet deposits">Add funds (coming soon)</button>
+</article>
 <article class="card"><div class="card-icon">✦</div><h2>Browse services</h2><p>Explore the social media and digital services catalogue. Listings are still being prepared for fulfilment.</p><a class="btn primary" href="./index.html#services">Browse services ↗</a></article>
 <article class="card"><div class="card-icon">▤</div><h2>My orders</h2><div class="balance">0</div><span class="badge">Order system not connected</span><p style="margin-top:13px">Your orders and live order statuses will appear here once ordering is implemented.</p><button class="btn" type="button" data-not-ready="Order tracking">View orders</button></article>
 </section>
@@ -29,7 +36,36 @@ const SUPABASE_URL='https://ncckvicaqkkeeldptrhh.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_KH-iKGg24pzexi3GRifCIg_xG9Di-1B';
 const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 document.getElementById('year').textContent=new Date().getFullYear();
-(async()=>{try{const {data,error}=await client.auth.getSession();if(error)throw error;if(!data.session){window.location.replace('./index.html');return}const user=data.session.user;const meta=user.user_metadata||{};document.getElementById('userName').textContent=meta.username||user.email?.split('@')[0]||'there';document.getElementById('userEmail').textContent=user.email||'Email unavailable';document.getElementById('loading').hidden=true;document.getElementById('dashboard').hidden=false}catch(e){document.getElementById('loading').textContent='Could not load your account. Please return to the storefront and log in again.'}})();
+(async()=>{try{const {data,error}=await client.auth.getSession();if(error)throw error;if(!data.session){window.location.replace('./index.html');return}const user=data.session.user;const meta=user.user_metadata||{};document.getElementById('userName').textContent=meta.username||user.email?.split('@')[0]||'there';document.getElementById('userEmail').textContent=user.email||'Email unavailable';const balanceEl=document.getElementById('walletBalance');
+const statusEl=document.getElementById('walletStatus');
+const messageEl=document.getElementById('walletMessage');
+
+balanceEl.textContent='Loading...';
+statusEl.textContent='Connecting wallet';
+
+const {data:wallet,error:walletError}=await client
+  .from('wallets')
+  .select('balance,currency')
+  .eq('user_id',user.id)
+  .maybeSingle();
+
+if(walletError){
+  balanceEl.textContent='Unavailable';
+  statusEl.textContent='Connection error';
+  messageEl.textContent='We could not load your wallet balance. Please try again later.';
+}else if(!wallet){
+  balanceEl.textContent='Not found';
+  statusEl.textContent='Wallet setup pending';
+  messageEl.textContent='Your wallet record was not found. Please contact support if this continues.';
+}else{
+  balanceEl.textContent=new Intl.NumberFormat('en-NG',{
+    style:'currency',
+    currency:'NGN'
+  }).format(Number(wallet.balance));
+
+  statusEl.textContent='Wallet ready';
+  messageEl.textContent='Your available balance for BoostPlus services. Deposits are not enabled yet.';
+  }document.getElementById('loading').hidden=true;document.getElementById('dashboard').hidden=false}catch(e){document.getElementById('loading').textContent='Could not load your account. Please return to the storefront and log in again.'}})();
 document.getElementById('logoutBtn').addEventListener('click',async()=>{const b=document.getElementById('logoutBtn');b.disabled=true;b.textContent='Logging out…';const {error}=await client.auth.signOut();if(error){b.disabled=false;b.textContent='Log out ↗';alert('Logout failed. Please try again.');return}window.location.replace('./index.html')});
 document.querySelectorAll('[data-not-ready]').forEach(b=>b.addEventListener('click',()=>alert(b.dataset.notReady+' is not connected yet. We will build this feature next.')));
 </script></body></html>
