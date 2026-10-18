@@ -1,120 +1,371 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#071810">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071810">
 <title>My Dashboard — BoostPlus</title>
+
 <style>
-:root{--bg:#06150e;--panel:#10291c;--panel2:#143522;--line:rgba(179,255,205,.13);--green:#24e879;--lime:#c7ff5e;--mint:#a7ffd0;--text:#f2fff6;--muted:#a4bcae}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 90% 0%,#24e87915,transparent 35%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}header{position:sticky;top:0;background:#06150eea;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:2}.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:21px}.logo{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;color:#062011;background:linear-gradient(135deg,var(--lime),var(--green));font-weight:950}.brand span:last-child{color:var(--green)}.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;padding:11px 15px;background:#ffffff08;color:var(--text);font-weight:750;font-size:13px}.primary{background:linear-gradient(120deg,var(--lime),var(--green));color:#07190f;border:0}main{padding:36px 0 65px}.welcome{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:27px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--mint);font-weight:800}h1{font-size:clamp(29px,5vw,43px);letter-spacing:-1.7px;margin:9px 0}.muted{color:var(--muted);line-height:1.7;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{border:1px solid var(--line);background:linear-gradient(145deg,#10291c,#0a1d13);border-radius:19px;padding:21px;min-width:0}.card-icon{width:44px;height:44px;border-radius:14px;background:#24e87917;border:1px solid #24e87925;display:grid;place-items:center;font-size:21px;margin-bottom:18px}.card h2{font-size:16px;margin:0 0 8px}.card p{font-size:12px;color:var(--muted);line-height:1.7;min-height:42px;margin:0 0 18px}.balance{font-size:27px;font-weight:900;letter-spacing:-.7px;margin:9px 0 5px}.badge{display:inline-block;font-size:10px;color:var(--lime);background:#24e87913;border:1px solid #24e87925;border-radius:99px;padding:6px 9px}.section-title{font-size:20px;letter-spacing:-.5px;margin:32px 0 14px}.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.notice{padding:14px 15px;border:1px solid #c7ff5e30;background:#c7ff5e0b;border-radius:14px;color:#dfffc0;font-size:12px;line-height:1.7;margin-top:20px}footer{border-top:1px solid var(--line);padding:24px 0;color:#8eaa99;font-size:11px}.footer-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}#loading{padding:70px 0;text-align:center;color:var(--muted)}@media(max-width:760px){.grid{grid-template-columns:1fr}.quick{grid-template-columns:1fr}.card p{min-height:0}}@media(min-width:761px) and (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+:root{--bg:#06150e;--panel:#10291c;--green:#24e879;--lime:#c7ff5e;--mint:#a7ffd0;--text:#f2fff6;--muted:#a4bcae;--line:rgba(179,255,205,.13)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 90% 0%,#24e87915,transparent 35%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.6;cursor:wait}
+.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+header{position:sticky;top:0;background:#06150eea;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:2}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:21px}
+.logo{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;color:#062011;background:linear-gradient(135deg,var(--lime),var(--green));font-weight:950}
+.brand span:last-child{color:var(--green)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:12px;padding:12px 15px;background:#ffffff08;color:var(--text);font-weight:750;font-size:13px}
+.primary{background:linear-gradient(120deg,var(--lime),var(--green));color:#07190f;border:0}
+main{padding:36px 0 65px}
+.welcome{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:27px}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--mint);font-weight:800}
+h1{font-size:clamp(29px,5vw,43px);letter-spacing:-1.7px;margin:9px 0}
+.muted{color:var(--muted);line-height:1.7;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{border:1px solid var(--line);background:linear-gradient(145deg,#10291c,#0a1d13);border-radius:19px;padding:21px;min-width:0}
+.card-icon{width:44px;height:44px;border-radius:14px;background:#24e87917;border:1px solid #24e87925;display:grid;place-items:center;font-size:21px;margin-bottom:18px}
+.card h2{font-size:16px;margin:0 0 8px}
+.card p{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 18px}
+.balance{font-size:27px;font-weight:900;letter-spacing:-.7px;margin:9px 0 5px;overflow-wrap:anywhere}
+.badge{display:inline-block;font-size:10px;color:var(--lime);background:#24e87913;border:1px solid #24e87925;border-radius:99px;padding:6px 9px}
+.section-title{font-size:20px;letter-spacing:-.5px;margin:32px 0 14px}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.notice{padding:14px 15px;border:1px solid #c7ff5e30;background:#c7ff5e0b;border-radius:14px;color:#dfffc0;font-size:12px;line-height:1.7;margin-top:20px}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#8eaa99;font-size:11px}
+.footer-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#loading{padding:70px 0;text-align:center;color:var(--muted)}
+#fundingPanel{margin-top:15px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#06150e}
+#fundingPanel[hidden]{display:none}
+#fundingPanel label{display:block;font-size:12px;margin-bottom:8px;color:var(--mint)}
+#fundAmount{display:block;width:100%;padding:13px;border:1px solid var(--line);border-radius:10px;background:#10291c;color:var(--text);margin-bottom:12px;font-size:16px}
+#fundMessage{font-size:12px;line-height:1.6;margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:760px){.grid,.quick{grid-template-columns:1fr}}
+@media(min-width:761px) and (max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
+
 <body>
-<header><div class="wrap nav"><a class="brand" href="./index.html"><span class="logo">B+</span>Boost<span>Plus</span></a><button id="logoutBtn" class="btn" type="button">Log out ↗</button></div></header>
-<main class="wrap"><div id="loading">Checking your account…</div><div id="dashboard" hidden>
-<section class="welcome"><div><div class="eyebrow">CUSTOMER DASHBOARD</div><h1>Welcome, <span id="userName">there</span> 👋</h1><div class="muted">Your BoostPlus account, all in one place.</div></div><a class="btn primary" href="./index.html#services">Explore services ↗</a></section>
-<section class="grid" aria-label="Account summary">
-<article class="card">
-<div class="card-icon">◈</div>
-<h2>Wallet balance</h2>
-<div class="balance" id="walletBalance">Loading balance...</div>
-<span class="badge" id="walletStatus">Connecting wallet</span>
-<p id="walletMessage" style="margin-top:13px">Loading your available balance from your secure account.</p>
-<button class="btn" type="button" data-not-ready="Wallet deposits">Add funds (coming soon)</button>
-</article>
-<article class="card"><div class="card-icon">✦</div><h2>Browse services</h2><p>Explore the social media and digital services catalogue. Listings are still being prepared for fulfilment.</p><a class="btn primary" href="./index.html#services">Browse services ↗</a></article>
-<article class="card"><div class="card-icon">▤</div><h2>My orders</h2><div class="balance">0</div><span class="badge">Order system not connected</span><p style="margin-top:13px">Your orders and live order statuses will appear here once ordering is implemented.</p><button class="btn" type="button" data-not-ready="Order tracking">View orders</button></article>
-</section>
-<h2 class="section-title">Account shortcuts</h2><section class="quick">
-<article class="card"><h2>👤 Account details</h2><p id="userEmail">Loading your email…</p><span class="badge">Authenticated with Supabase</span></article>
-<article class="card">
-<h2>↻ Transaction history</h2>
-<p>Your latest wallet transactions will appear here.</p>
-<div id="transactionHistory">
-<p>Loading transactions...</p>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="./index.html"><span class="logo">B+</span>Boost<span>Plus</span></a>
+    <button id="logoutBtn" class="btn" type="button">Log out ↗</button>
+  </div>
+</header>
+
+<main class="wrap">
+<div id="loading">Checking your account…</div>
+
+<div id="dashboard" hidden>
+  <section class="welcome">
+    <div>
+      <div class="eyebrow">CUSTOMER DASHBOARD</div>
+      <h1>Welcome, <span id="userName">there</span> 👋</h1>
+      <div class="muted">Your BoostPlus account, all in one place.</div>
+    </div>
+    <a class="btn primary" href="./index.html#services">Explore services ↗</a>
+  </section>
+
+  <section class="grid" aria-label="Account summary">
+    <article class="card">
+      <div class="card-icon">◈</div>
+      <h2>Wallet balance</h2>
+      <div class="balance" id="walletBalance">Loading balance...</div>
+      <span class="badge" id="walletStatus">Connecting wallet</span>
+      <p id="walletMessage" style="margin-top:13px">Loading your wallet.</p>
+
+      <button class="btn primary" id="addFundsBtn" type="button">＋ Add funds</button>
+
+      <div id="fundingPanel" hidden>
+        <label for="fundAmount">Amount to deposit (NGN)</label>
+        <input id="fundAmount" type="number" min="100" max="500000" step="1" inputmode="numeric" placeholder="Enter amount, e.g. 1000">
+        <button class="btn primary" id="payBtn" type="button" style="width:100%">Continue to secure payment ↗</button>
+        <button class="btn" id="cancelFundBtn" type="button" style="width:100%;margin-top:8px">Cancel</button>
+        <div id="fundMessage" role="status" aria-live="polite"></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">✦</div>
+      <h2>Browse services</h2>
+      <p>Explore social media and digital services. Listings are being prepared for fulfilment.</p>
+      <a class="btn primary" href="./index.html#services">Browse services ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-icon">▤</div>
+      <h2>My orders</h2>
+      <div class="balance">0</div>
+      <span class="badge">Order system not connected</span>
+      <p style="margin-top:13px">Your orders and statuses will appear here once ordering is implemented.</p>
+      <button class="btn" type="button" id="ordersBtn">View orders</button>
+    </article>
+  </section>
+
+  <h2 class="section-title">Account shortcuts</h2>
+
+  <section class="quick">
+    <article class="card">
+      <h2>👤 Account details</h2>
+      <p id="userEmail">Loading your email…</p>
+      <span class="badge">Authenticated with Supabase</span>
+    </article>
+
+    <article class="card">
+      <h2>↻ Transaction history</h2>
+      <p>Your latest wallet transactions.</p>
+      <div id="transactionHistory">Loading transactions...</div>
+    </article>
+  </section>
+
+  <div class="notice">
+    <strong>BoostPlus:</strong> If a payment is pending, check your wallet and transaction history again before attempting another deposit.
+  </div>
 </div>
-</article>
-</section>
-<div class="notice"><strong>Dashboard v1:</strong> Need help with your BoostPlus account? Contact our support team for assistance with your account, wallet, services, or orders.</div>
-</div></main>
-<footer><div class="wrap footer-row"><span>© <span id="year"></span> BoostPlus</span><a href="./index.html">Back to storefront</a></div></footer>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© <span id="year"></span> BoostPlus</span>
+    <a href="./index.html">Back to storefront</a>
+  </div>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const SUPABASE_URL='https://ncckvicaqkkeeldptrhh.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_KH-iKGg24pzexi3GRifCIg_xG9Di-1B';
-const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-document.getElementById('year').textContent=new Date().getFullYear();
-(async()=>{try{const {data,error}=await client.auth.getSession();if(error)throw error;if(!data.session){window.location.replace('./index.html');return}const user=data.session.user;const meta=user.user_metadata||{};document.getElementById('userName').textContent=meta.username||user.email?.split('@')[0]||'there';document.getElementById('userEmail').textContent=user.email||'Email unavailable';const balanceEl=document.getElementById('walletBalance');
-const statusEl=document.getElementById('walletStatus');
-const messageEl=document.getElementById('walletMessage');
+const SUPABASE_URL = 'https://ncckvicaqkkeeldptrhh.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_KH-iKGg24pzexi3GRifCIg_xG9Di-1B';
 
-balanceEl.textContent='Loading...';
-statusEl.textContent='Connecting wallet';
-
-const {data:wallet,error:walletError}=await client
-  .from('wallets')
-  .select('balance,currency')
-  .eq('user_id',user.id)
-  .maybeSingle();
-
-if(walletError){
-  balanceEl.textContent='Unavailable';
-  statusEl.textContent='Connection error';
-  messageEl.textContent='We could not load your wallet balance. Please try again later.';
-}else if(!wallet){
-  balanceEl.textContent='Not found';
-  statusEl.textContent='Wallet setup pending';
-  messageEl.textContent='Your wallet record was not found. Please contact support if this continues.';
-}else{
-  balanceEl.textContent=new Intl.NumberFormat('en-NG',{
-    style:'currency',
-    currency:'NGN'
-  }).format(Number(wallet.balance));
-
-  statusEl.textContent='Wallet ready';
-  messageEl.textContent='Your available balance for BoostPlus services. Deposits are not enabled yet.';
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY,
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
   }
-               const historyEl=document.getElementById('transactionHistory');
+);
 
-historyEl.textContent='Loading transactions...';
+const $ = id => document.getElementById(id);
+let currentSession = null;
+let currentUser = null;
 
-const {data:transactions,error:transactionsError}=await client
-  .from('transactions')
-  .select('type,amount,reference,description,created_at')
-  .eq('user_id',user.id)
-  .order('created_at',{ascending:false})
-  .limit(5);
+$('year').textContent = new Date().getFullYear();
 
-if(transactionsError){
-  historyEl.textContent='Unable to load transactions. Please try again later.';
-}else if(!transactions || transactions.length===0){
-  historyEl.textContent='No transactions yet. Your wallet activity will appear here.';
-}else{
-  historyEl.replaceChildren();
+function formatNaira(value) {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    maximumFractionDigits: 2
+  }).format(Number(value) || 0);
+}
 
-  transactions.forEach(tx=>{
-    const item=document.createElement('div');
-    item.style.cssText='padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.12)';
+async function loadWallet() {
+  const { data, error } = await client
+    .from('wallets')
+    .select('balance,currency')
+    .eq('user_id', currentUser.id)
+    .maybeSingle();
 
-    const title=document.createElement('strong');
-    title.textContent=(tx.type||'Transaction').charAt(0).toUpperCase()+
-      (tx.type||'transaction').slice(1);
+  if (error || !data) {
+    $('walletBalance').textContent = 'Unavailable';
+    $('walletStatus').textContent = error ? 'Connection error' : 'Wallet setup pending';
+    $('walletMessage').textContent = 'We could not load your wallet. Please try again later.';
+    return;
+  }
 
-    const amount=document.createElement('p');
-    amount.style.margin='6px 0';
-    amount.textContent=new Intl.NumberFormat('en-NG',{
-      style:'currency',
-      currency:'NGN'
-    }).format(Number(tx.amount));
+  $('walletBalance').textContent = formatNaira(data.balance);
+  $('walletStatus').textContent = 'Wallet ready';
+  $('walletMessage').textContent = 'Your available BoostPlus wallet balance.';
+}
 
-    const details=document.createElement('small');
-    details.textContent=[
+async function loadTransactions() {
+  const box = $('transactionHistory');
+  box.textContent = 'Loading transactions...';
+
+  const { data, error } = await client
+    .from('transactions')
+    .select('type,amount,reference,description,created_at')
+    .eq('user_id', currentUser.id)
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  if (error) {
+    box.textContent = 'Unable to load transactions. Please try again later.';
+    return;
+  }
+
+  if (!data || !data.length) {
+    box.textContent = 'No transactions yet. Your wallet activity will appear here.';
+    return;
+  }
+
+  box.replaceChildren();
+
+  data.forEach(tx => {
+    const item = document.createElement('div');
+    item.style.cssText = 'padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12)';
+
+    const title = document.createElement('strong');
+    title.textContent = (tx.type || 'Transaction').charAt(0).toUpperCase()
+      + (tx.type || 'transaction').slice(1);
+
+    const amount = document.createElement('p');
+    amount.style.margin = '6px 0';
+    amount.textContent = formatNaira(tx.amount);
+
+    const details = document.createElement('small');
+    details.style.cssText = 'color:#a4bcae;line-height:1.6';
+    details.textContent = [
       tx.description,
       tx.created_at ? new Date(tx.created_at).toLocaleString('en-NG') : ''
     ].filter(Boolean).join(' • ');
 
-    item.append(title,amount,details);
-    historyEl.appendChild(item);
+    item.append(title, amount, details);
+    box.appendChild(item);
   });
-  }document.getElementById('loading').hidden=true;document.getElementById('dashboard').hidden=false}catch(e){document.getElementById('loading').textContent='Could not load your account. Please return to the storefront and log in again.'}})();
-document.getElementById('logoutBtn').addEventListener('click',async()=>{const b=document.getElementById('logoutBtn');b.disabled=true;b.textContent='Logging out…';const {error}=await client.auth.signOut();if(error){b.disabled=false;b.textContent='Log out ↗';alert('Logout failed. Please try again.');return}window.location.replace('./index.html')});
-document.querySelectorAll('[data-not-ready]').forEach(b=>b.addEventListener('click',()=>alert(b.dataset.notReady+' is not connected yet. We will build this feature next.')));
-</script></body></html>
+}
+
+$('addFundsBtn').addEventListener('click', () => {
+  $('fundingPanel').hidden = false;
+  $('fundMessage').textContent = '';
+  $('fundAmount').focus();
+});
+
+$('cancelFundBtn').addEventListener('click', () => {
+  $('fundingPanel').hidden = true;
+  $('fundMessage').textContent = '';
+});
+
+$('payBtn').addEventListener('click', async () => {
+  const button = $('payBtn');
+  const message = $('fundMessage');
+  const amount = Number($('fundAmount').value);
+
+  if (!Number.isSafeInteger(amount) || amount < 100 || amount > 500000) {
+    message.textContent = 'Enter a whole-number amount between ₦100 and ₦500,000.';
+    return;
+  }
+
+  if (!currentSession?.access_token) {
+    message.textContent = 'Your session has expired. Please log in again.';
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = 'Preparing secure checkout…';
+  message.textContent = 'Connecting to the payment service. Please wait.';
+
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/functions/v1/korapay-initiate`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_PUBLISHABLE_KEY,
+          'Authorization': `Bearer ${currentSession.access_token}`
+        },
+        body: JSON.stringify({ amount })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.checkout_url) {
+      throw new Error(result.error || result.message || 'Could not initialize checkout.');
+    }
+
+    const checkout = new URL(result.checkout_url);
+
+    if (checkout.protocol !== 'https:' ||
+        checkout.hostname !== 'checkout.korapay.com') {
+      throw new Error('The payment service returned an unexpected checkout address. Please contact support.');
+    }
+
+    message.textContent = 'Opening Kora secure checkout…';
+    window.location.assign(checkout.href);
+
+  } catch (error) {
+    message.textContent = error instanceof Error
+      ? error.message
+      : 'Could not start checkout. Please try again later.';
+    button.disabled = false;
+    button.textContent = 'Continue to secure payment ↗';
+  }
+});
+
+$('ordersBtn').addEventListener('click', () => {
+  alert('Order tracking is not connected yet.');
+});
+
+$('logoutBtn').addEventListener('click', async () => {
+  const button = $('logoutBtn');
+  button.disabled = true;
+  button.textContent = 'Logging out…';
+
+  const { error } = await client.auth.signOut();
+
+  if (error) {
+    button.disabled = false;
+    button.textContent = 'Log out ↗';
+    alert('Logout failed. Please try again.');
+    return;
+  }
+
+  window.location.replace('./index.html');
+});
+
+(async () => {
+  try {
+    const { data, error } = await client.auth.getSession();
+
+    if (error) throw error;
+
+    currentSession = data.session;
+
+    if (!currentSession) {
+      window.location.replace('./index.html');
+      return;
+    }
+
+    currentUser = currentSession.user;
+
+    const metadata = currentUser.user_metadata || {};
+    $('userName').textContent =
+      metadata.username || currentUser.email?.split('@')[0] || 'there';
+    $('userEmail').textContent = currentUser.email || 'Email unavailable';
+
+    // Display the dashboard before loading account data.
+    $('loading').hidden = true;
+    $('dashboard').hidden = false;
+
+    await Promise.all([loadWallet(), loadTransactions()]);
+
+    // A checkout return is not proof of successful payment.
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('reference')) {
+      $('fundingPanel').hidden = false;
+      $('fundMessage').textContent =
+        'You have returned from checkout. Your wallet will update after the payment is verified. Refresh your wallet shortly if the balance has not changed.';
+      await loadWallet();
+      await loadTransactions();
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+  } catch (error) {
+    $('loading').hidden = false;
+    $('loading').textContent =
+      'Could not load your account. Please return to the storefront and log in again.';
+  }
+})();
+</script>
+</body>
+</html>
